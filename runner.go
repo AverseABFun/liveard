@@ -42,18 +42,33 @@ func RunSingle(child *Node) {
 			return
 		}
 		var iterations, err = Atoi(child.Children[0].Data)
-		if err != nil {
+		if err != nil && child.Children[0].Data != "forever" {
 			Error("Expected first argument to loop call to be an int, got error: " + err.Error())
 			return
 		}
-		for i := 1; i < iterations; i++ {
-			if child.Children[1].Data != "" {
-				variables = deleteVar(variables, child.Children[1].Data)
-				var vari = Variable{Name: child.Children[1].Data, Value: Itoa(i)}
-				variables = prepend(variables, &vari)
-				Run(child.Children[2])
-			} else {
-				Run(child.Children[1])
+		if child.Children[0].Data != "forever" {
+			for i := 1; i < iterations; i++ {
+				if child.Children[1].Data != "" {
+					variables = deleteVar(variables, child.Children[1].Data)
+					var vari = Variable{Name: child.Children[1].Data, Value: Itoa(i)}
+					variables = prepend(variables, &vari)
+					Run(child.Children[2])
+				} else {
+					Run(child.Children[1])
+				}
+			}
+		} else {
+			i := 1
+			for {
+				if child.Children[1].Data != "" {
+					variables = deleteVar(variables, child.Children[1].Data)
+					var vari = Variable{Name: child.Children[1].Data, Value: Itoa(i)}
+					variables = prepend(variables, &vari)
+					Run(child.Children[2])
+				} else {
+					Run(child.Children[1])
+				}
+				i++
 			}
 		}
 	case "print":
