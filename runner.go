@@ -82,7 +82,7 @@ func RunSingle(child *Node) {
 			Error("Invalid number of arguments provided to time call")
 		}
 		Run(args[0])
-		child.Data = args[0].Data + ",s"
+		child.Data = args[0].Data + "ms"
 	case "s":
 		if len(args) != 1 {
 			Error("Invalid number of arguments provided to time call")
