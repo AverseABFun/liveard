@@ -1,0 +1,5 @@
+(loop 10 i (
+    (send i)
+    (send ": Hello, world!\n")
+    (hold (ms 500))
+))
