@@ -1,2 +1,2 @@
 # liveard
-maybe live coding on a arduino
+tinygo live coding in a lisp variant
