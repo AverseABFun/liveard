@@ -294,8 +294,10 @@ func Itoa(i int) string { // Almost entirely rewritten
 		return digits[i : i+1]
 	}
 	var out = ""
-	for _, digit := range getDigits(i) {
-		out += digits[digit : digit+1]
+	for i >= 1 {
+		i /= 10
+		println(i)
+		out += digits[i%10 : (i%10)+1]
 	}
 	return out
 }

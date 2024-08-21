@@ -11,7 +11,7 @@ func main() {
 
 	var ctx = CreateContext()
 
-	InitMethods()
+	//InitMethods()
 
 	for {
 		c, err := ReadByte()
