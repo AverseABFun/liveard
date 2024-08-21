@@ -169,20 +169,33 @@ func (ctx *Context) AddChar(b byte) {
 	default:
 		// Add byte to the current text
 		ctx.CurrentText += string(b)
-		ctx.IsVar = true
-		ctx.IsLiteral = false
+		var isLiteral = false
+		for _, digit := range []byte(digits) {
+			if b == digit {
+				isLiteral = true
+				break
+			}
+		}
+		ctx.IsVar = !isLiteral
+		ctx.IsLiteral = isLiteral
 	}
 }
 
 func (ctx *Context) ParseBuffer() {
 	for _, b := range ctx.Buffer {
+		if b == 0 {
+			break
+		}
 		ctx.AddChar(b)
 	}
 }
 
-// Unread removes a character from the buffer and removes all subsequent ones
+// Unread removes a character from the buffer
 func (ctx *Context) Unread() {
-	ctx.Buffer[ctx.BufferPos] = 0
+	if ctx.BufferPos <= 0 {
+		ctx.BufferPos = 0
+		return
+	}
 	ctx.BufferPos--
 }
 

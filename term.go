@@ -11,6 +11,8 @@ func main() {
 
 	var ctx = CreateContext()
 
+	InitMethods()
+
 	for {
 		c, err := ReadByte()
 		if err == nil {
@@ -23,7 +25,6 @@ func main() {
 				if ctx.IsInvalid() {
 					continue
 				}
-				InitModules()
 				Run(ctx.RootNode)
 			} else if c == 24 { // Intercept ^X, restarts the entire device/program
 				Reset()
@@ -32,7 +33,7 @@ func main() {
 				ctx = CreateContext()
 			} else if c == 127 { // Intercept backspace, unreads the last char
 				ctx.Unread()
-				print(c)
+				WriteByte(c)
 			} else if c < 32 {
 				// Convert nonprintable control characters to
 				// ^A, ^B, etc if they weren't intercepted by the above code

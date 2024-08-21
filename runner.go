@@ -69,20 +69,17 @@ func Run(n *Node) {
 			}
 			broken = child.IsLiteral // a little janky but it works
 			if !broken {
-				println("unbroken")
-				for _, mod := range modules {
-					println(mod.Name)
-					for _, method := range mod.ProvidedMethods {
-						println(method.Name)
-						if method.Name == child.Data {
-							println("calling")
-							var out = method.Fun(child.Children)
-							println("done calling")
-							child.Data = out.Val
-							broken = true
-							println("breaking")
-							break
-						}
+				println(child.Data)
+				for _, method := range methods {
+					println(method.Name)
+					if method.Name == child.Data {
+						println("calling")
+						var out = method.Fun(child.Children)
+						println("done calling")
+						child.Data = out.Val
+						broken = true
+						println("breaking")
+						break
 					}
 				}
 
