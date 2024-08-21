@@ -1,6 +1,6 @@
 //go:build atmega2560
 
-// This builds for the ATMega2560(which is also inside the Arduino Mega).
+// This builds for the ATMega2560(which is also inside the Arduino Mega 2560).
 
 package main
 
